@@ -3,7 +3,7 @@ let users = {
     id: 'sarahedo',
     password:'password123',
     name: 'Sarah Edo',
-    avatarURL: null,
+    avatarURL: "https://d2v5dzhdg4zhx3.cloudfront.net/adminTemplate/5cc8252c60fd45dd8c659b8fd1fa6f83.jpg",
     answers: {
       "8xf0y6ziyjabvozdd253nd": 'optionOne',
       "6ni6ok3ym7mf1p33lnez": 'optionOne',
@@ -16,7 +16,7 @@ let users = {
     id: 'tylermcginnis',
     password:'abc321',
     name: 'Tyler McGinnis',
-    avatarURL: null,
+    avatarURL: "https://d2v5dzhdg4zhx3.cloudfront.net/adminTemplate/7a061a0a69a5435bb61f808273682806.jpg",
     answers: {
       "vthrdm985a262al8qx3do": 'optionOne',
       "xj352vofupe1dqz9emx13r": 'optionTwo',
@@ -27,7 +27,7 @@ let users = {
     id: 'mtsamis',
     password:'xyz123',
     name: 'Mike Tsamis',
-    avatarURL: null,
+    avatarURL: "https://d2v5dzhdg4zhx3.cloudfront.net/adminTemplate/cf1a684f30194edcb4d68525888122dc.jpg",
     answers: {
       "xj352vofupe1dqz9emx13r": 'optionOne',
       "vthrdm985a262al8qx3do": 'optionTwo',
@@ -42,6 +42,7 @@ let questions = {
     id: '8xf0y6ziyjabvozdd253nd',
     author: 'sarahedo',
     timestamp: 1467166872634,
+    active: false,
     optionOne: {
       votes: ['sarahedo'],
       text: 'Build our new application with Javascript',
@@ -55,6 +56,7 @@ let questions = {
     id: '6ni6ok3ym7mf1p33lnez',
     author: 'mtsamis',
     timestamp: 1468479767190,
+    active: false,
     optionOne: {
       votes: [],
       text: 'hire more frontend developers',
@@ -68,6 +70,7 @@ let questions = {
     id: 'am8ehyc8byjqgar0jgpub9',
     author: 'sarahedo',
     timestamp: 1488579767190,
+    active: true,
     optionOne: {
       votes: [],
       text: 'conduct a release retrospective 1 week after a release',
@@ -81,6 +84,7 @@ let questions = {
     id: 'loxhs1bqm25b708cmbf3g',
     author: 'tylermcginnis',
     timestamp: 1482579767190,
+    active: true,
     optionOne: {
       votes: [],
       text: 'have code reviews conducted by peers',
@@ -94,6 +98,7 @@ let questions = {
     id: 'vthrdm985a262al8qx3do',
     author: 'tylermcginnis',
     timestamp: 1489579767190,
+    active: true,
     optionOne: {
       votes: ['tylermcginnis'],
       text: 'take a course on ReactJS',
@@ -107,6 +112,7 @@ let questions = {
     id: 'xj352vofupe1dqz9emx13r',
     author: 'mtsamis',
     timestamp: 1493579767190,
+    active: true,
     optionOne: {
       votes: ['mtsamis'],
       text: 'deploy to production once every two weeks',
@@ -139,6 +145,7 @@ function formatQuestion ({ optionOneText, optionTwoText, author }) {
     id: generateUID(),
     timestamp: Date.now(),
     author,
+    active: true,
     optionOne: {
       votes: [],
       text: optionOneText,
