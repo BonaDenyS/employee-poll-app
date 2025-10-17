@@ -1,5 +1,3 @@
-const DEFAULT_SCOPE = "default";
-
 export default function loadingBarReducer(state = 0, action) {
   const { type } = action;
 

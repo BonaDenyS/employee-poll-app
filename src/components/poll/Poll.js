@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./Poll.css";
 import { connect } from "react-redux";
 import { handleAddAnswer } from "../../actions/questions";
-import authedUser from "../../reducers/authedUser";
 
 const Poll = (props) => {
 

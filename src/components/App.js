@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 function App(props) {
   useEffect(() => {
     props.dispatch(handleInitialData());
-  }, []);
+  });
 
   return (
     <Fragment>
