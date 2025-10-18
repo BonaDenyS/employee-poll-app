@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Login.css";
 import { setAuthedUser } from "../../actions/authedUser";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 
 const Login = (props) => {
@@ -9,18 +9,20 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Username:", username, "Password:", password);
     const { dispatch, users } = props;
-    const isUserVerify = Object.values(users).find((u) => 
+    const isUserVerify = Object.values(users).find((u) =>
       u.id === username && u.password === password
     );
 
     if (isUserVerify) {
       dispatch(setAuthedUser(username))
-      navigate("/");
+      navigate(from, { replace: true });
     } else {
       dispatch(setAuthedUser(null))
       navigate("/login");

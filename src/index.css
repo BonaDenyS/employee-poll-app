@@ -26,6 +26,13 @@ body {
   margin: 0;
 }
 
+.loading {
+  text-align: center;
+  padding-top: 100px;
+  font-size: 1.5rem;
+  color: #666;
+}
+
 .logout-btn {
   background: none;
   border: none;

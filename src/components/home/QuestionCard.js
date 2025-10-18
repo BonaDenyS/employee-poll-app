@@ -21,7 +21,7 @@ const QuestionCard = ({ questions, title }) => {
     };
 
     const handleShowPoll = (question) => {
-        navigate("/poll", { state: { question } });
+        navigate(`/poll/${question.id}`);
     };
 
     return (

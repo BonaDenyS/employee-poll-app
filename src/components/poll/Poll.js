@@ -1,15 +1,22 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./Poll.css";
 import { connect } from "react-redux";
 import { handleAddAnswer } from "../../actions/questions";
+import NotFound from "../notfound/NotFound";
 
 const Poll = (props) => {
-
+  const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { question } = location.state || {};
-  const user = props.users[question.author]
-  const name = user.name
+  const { questions, users, dispatch } = props;
+
+  const question = questions[id];
+
+  if (!question) {
+    return <NotFound />;
+  }
+
+  const user = users[question.author];
+  const name = user?.name || "Unknown";
 
   function toSentenceCase(text) {
     return text
@@ -24,11 +31,7 @@ const Poll = (props) => {
   }
 
   const handlePollAnswer = (qid, answer) => {
-    const { dispatch } = props;
-
-    if (!qid || !answer) {
-      return
-    }
+    if (!qid || !answer) return;
 
     dispatch(handleAddAnswer({ qid, answer }));
     navigate("/");
@@ -38,36 +41,39 @@ const Poll = (props) => {
     <div className="poll-container">
       <h2 className="poll-author">Poll by {name}</h2>
 
-      <img
-        className="poll-avatar"
-        src={user.avatarURL}
-        alt="Author Avatar"
-      />
+      {user && (
+        <img
+          className="poll-avatar"
+          src={user.avatarURL}
+          alt={`${name}'s avatar`}
+        />
+      )}
 
       <h3 className="poll-title">Would You Rather</h3>
 
       <div className="poll-options">
         <div className="poll-option">
           <p>{toSentenceCase(question.optionOne.text)}</p>
-          <button
-            onClick={() => handlePollAnswer(question.id, "optionOne")}
-          >Click</button>
+          <button onClick={() => handlePollAnswer(question.id, "optionOne")}>
+            Click
+          </button>
         </div>
 
         <div className="poll-option">
           <p>{toSentenceCase(question.optionTwo.text)}</p>
-          <button
-            onClick={() => handlePollAnswer(question.id, "optionTwo")}
-          >Click</button>
+          <button onClick={() => handlePollAnswer(question.id, "optionTwo")}>
+            Click
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ users, authedUser }) => ({
+const mapStateToProps = ({ users, authedUser, questions }) => ({
   users,
   authedUser,
+  questions,
 });
 
 export default connect(mapStateToProps)(Poll);

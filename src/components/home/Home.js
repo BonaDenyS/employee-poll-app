@@ -12,7 +12,6 @@ const Home = (props) => {
     const closeQuestion = questions.filter(q => !q.active)
 
     useEffect(() => {
-        console.log("wkwk: ", authedUser);
         if (!authedUser) {
             navigate("/login");
         }

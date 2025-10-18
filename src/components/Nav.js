@@ -19,9 +19,9 @@ const Nav = (props) => {
                 <li><Link to="/new">New</Link></li>
             </ul>
             <div className="user-info">
-                {authedUser && <span className="username">{user.name}</span>}
+                {authedUser && user && <span className="username">{user.name}</span>}
                 <button onClick={handleLogout} className="logout-btn">Logout</button>
-        </div>
+            </div>
         </nav >
     );
 };
