@@ -14,7 +14,6 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Username:", username, "Password:", password);
     const { dispatch, users } = props;
     const isUserVerify = Object.values(users).find((u) =>
       u.id === username && u.password === password

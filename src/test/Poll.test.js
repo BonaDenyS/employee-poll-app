@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import configureMockStore from "redux-mock-store";
 import { thunk } from "redux-thunk";
 import { Provider } from "react-redux";
-import { MemoryRouter, useNavigate } from "react-router-dom";
+import { MemoryRouter, useNavigate, useParams } from "react-router-dom";
 import Poll from "../components/poll/Poll";
 
 jest.mock("../actions/questions", () => ({
@@ -12,11 +12,12 @@ jest.mock("../actions/questions", () => ({
 jest.mock("react-router-dom", () => ({
     ...jest.requireActual("react-router-dom"),
     useNavigate: jest.fn(),
+    useParams: jest.fn(),
     useLocation: jest.fn(),
 }));
 
 const mockNavigate = jest.fn();
-const mockStore = configureMockStore([thunk]);
+const mockStore = configureMockStore([thunk.default || thunk]);
 
 describe("Poll Component", () => {
     let store;
@@ -40,11 +41,15 @@ describe("Poll Component", () => {
         store = mockStore({
             users: mockUser,
             authedUser: "sarahedo",
+            questions: { question_1: mockQuestion },
         });
 
         jest.clearAllMocks();
-        require("react-router-dom").useNavigate.mockReturnValue(mockNavigate);
-        require("react-router-dom").useLocation.mockReturnValue({
+
+        const router = require("react-router-dom");
+        router.useNavigate.mockReturnValue(mockNavigate);
+        router.useParams.mockReturnValue({ id: "question_1" });
+        router.useLocation.mockReturnValue({
             state: { question: mockQuestion },
         });
     });
@@ -74,10 +79,6 @@ describe("Poll Component", () => {
         );
 
         const { handleAddAnswer } = require("../actions/questions");
-
-        const props = { dispatch: jest.fn() };
-        const instance = <Poll {...props} />;
-
         expect(handleAddAnswer).not.toHaveBeenCalled();
     });
 });
